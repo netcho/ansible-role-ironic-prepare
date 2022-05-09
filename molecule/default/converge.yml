@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include netcho.ironic_prepare"
+      include_role:
+        name: "netcho.ironic_prepare"

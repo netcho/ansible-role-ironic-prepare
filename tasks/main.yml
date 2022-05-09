@@ -1,0 +1,2 @@
+- name: Performing distribution-specific tasks
+  include_tasks: "prepare_{{ ansible_distribution | lower }}.yml"

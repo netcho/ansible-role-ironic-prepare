@@ -1,0 +1,6 @@
+- name: Rebuilding GRUB configuration
+  become: true
+  ansible.builtin.command: /usr/sbin/update-grub
+  listen: Update GRUB configuration
+  when:
+    - ansible_os_family == 'Debian'
