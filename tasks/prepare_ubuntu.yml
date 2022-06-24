@@ -17,3 +17,6 @@
     - GRUB_TERMINAL="console serial"
     - GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"
     - GRUB_CMDLINE_LINUX_DEFAULT="no_timer_check nofb nomodeset gfxpayload=text product_name='OpenStack Nova'"
+    - GRUB_TIMEOUT="5"
+    - GRUB_TIMEOUT_STYLE="menu"
+
