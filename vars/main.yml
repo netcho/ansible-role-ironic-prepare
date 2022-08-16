@@ -1,2 +1,5 @@
 ---
 # vars file for ironic_prepare
+grub_configuration_map:
+  redhat: "/etc/default/grub"
+  debian: "/etc/default/grub.d/99-storpool-lab.cfg"

@@ -40,3 +40,11 @@
       - grub2-efi
       - shim
   notify: Update GRUB configuration
+
+- name: Removing explicit console arguments from kernel command line
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    search_string: GRUB_CMDLINE_LINUX=
+    line: GRUB_CMDLINE_LINUX="crashkernel=auto net.ifnames=0"
+  notify: Update GRUB configuration

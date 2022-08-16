@@ -1,2 +1,25 @@
 - name: Performing distribution-specific tasks
   include_tasks: "prepare_{{ ansible_distribution | lower }}.yml"
+
+- name: Configuring GRUB
+  become: true
+  ansible.builtin.lineinfile:
+    path: "{{ grub_configuration_map[os_family] }}"
+    create: true
+    mode: 0644
+    search_string: "{{ item.search_for }}"
+    line: "{{ item.replace_with }}"
+  notify: Update GRUB configuration
+  loop:
+    - search_for: GRUB_TERMINAL=
+      replace_with: GRUB_TERMINAL="console serial"
+    - search_for: GRUB_SERIAL_COMMAND=
+      replace_with: GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"
+    - search_for: GRUB_CMDLINE_LINUX_DEFAULT=
+      replace_with: GRUB_CMDLINE_LINUX_DEFAULT="no_timer_check nofb nomodeset gfxpayload=text"
+    - search_for: GRUB_TIMEOUT=
+      replace_with: GRUB_TIMEOUT="5"
+    - search_for: GRUB_TIMEOUT_STYLE=
+      replace_with: GRUB_TIMEOUT_STYLE="menu"
+  vars:
+    os_family: ansible_distribution | lower
