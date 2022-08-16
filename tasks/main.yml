@@ -23,3 +23,11 @@
       replace_with: GRUB_TIMEOUT_STYLE="menu"
   vars:
     os_family: "{{ ansible_os_family | lower }}"
+
+- name: Unlocking root user
+  become: yes
+  ansible.builtin.user:
+    name: root
+    state: present
+    password_lock: false
+    shell: "/bin/bash"
