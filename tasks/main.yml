@@ -22,4 +22,4 @@
     - search_for: GRUB_TIMEOUT_STYLE=
       replace_with: GRUB_TIMEOUT_STYLE="menu"
   vars:
-    os_family: ansible_os_family | lower
+    os_family: "{{ ansible_os_family | lower }}"
