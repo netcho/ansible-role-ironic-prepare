@@ -18,3 +18,16 @@
   listen: Update GRUB configuration
   when:
     - ansible_os_family == 'RedHat'
+
+- name: Correcting EFI GRUB commands on CentOS 7
+  become: true
+  ansible.builtin.replace:
+    path: "/boot/efi/EFI/{{ ansible_distribution | lower }}/grub.cfg"
+    regexp: "{{ item }}16"
+    replace: "{{ item }}efi"
+  loop:
+    - linux
+    - initrd
+  listen: Update GRUB configuration
+  when:
+    - ansible_distribution | lower == "centos"
