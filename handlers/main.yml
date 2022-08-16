@@ -4,3 +4,17 @@
   listen: Update GRUB configuration
   when:
     - ansible_os_family == 'Debian'
+
+- name: Updating GRUB BIOS configuration
+  become: true
+  ansible.builtin.command: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+  listen: Update GRUB configuration
+  when:
+    - ansible_os_family == 'RedHat'
+
+- name: Updating GRUB EFI configuration
+  become: true
+  ansible.builtin.command: "/usr/sbin/grub2-mkconfig -o /boot/efi/EFI/{{ ansible_distribution | lower }}/grub.cfg"
+  listen: Update GRUB configuration
+  when:
+    - ansible_os_family == 'RedHat'

@@ -1,1 +1,42 @@
----
+- name: Dumping current partitions
+  ansible.builtin.debug:
+    var: ansible_devices
+    verbosity: 3
+
+- name: Creating EFI system partition
+  become: yes
+  community.general.parted:
+    device: /dev/sda
+    number: 2
+    part_start: -256MiB
+    fs_type: fat32
+    state: present
+    unit: MiB
+
+- name: Changing EFI system partition type
+  become: yes
+  ansible.builtin.command: sfdisk -c /dev/sda 2 ef
+
+- name: Formating EFI system partition
+  become: yes
+  community.general.filesystem:
+    device: /dev/sda2
+    fstype: vfat
+    force: yes
+    opts: -F 16
+
+- name: Mounting EFI system partition
+  become: yes
+  ansible.posix.mount:
+    path: /boot/efi/
+    src: /dev/sda2
+    state: mounted
+    fstype: vfat
+
+- name: Installing GRUB EFI package
+  become: yes
+  ansible.builtin.yum:
+    name:
+      - grub2-efi
+      - shim
+  notify: Update GRUB configuration
