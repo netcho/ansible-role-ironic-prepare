@@ -25,11 +25,17 @@
     force: yes
     opts: -F 16
 
+- name: Regathering facts due to new partition
+  become: yes
+  ansible.builtin.setup:
+    gather_subset:
+      - devices
+
 - name: Mounting EFI system partition
   become: yes
   ansible.posix.mount:
-    path: /boot/efi/
-    src: /dev/sda2
+    path: /boot/efi
+    src: "UUID={{ ansible_devices['sda']['partitions']['sda2']['uuid'] }}"
     state: mounted
     fstype: vfat
 
