@@ -52,5 +52,5 @@
   ansible.builtin.lineinfile:
     path: /etc/default/grub
     search_string: GRUB_CMDLINE_LINUX=
-    line: GRUB_CMDLINE_LINUX="crashkernel=auto net.ifnames=0"
+    line: GRUB_CMDLINE_LINUX="crashkernel=auto"
   notify: Update GRUB configuration
