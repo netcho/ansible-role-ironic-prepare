@@ -1,5 +1,5 @@
 - name: Performing distribution-specific tasks
-  include_tasks: "prepare_{{ ansible_distribution | lower }}.yml"
+  include_tasks: "prepare_{{ ansible_os_family | lower }}.yml"
 
 - name: Configuring GRUB
   become: true
