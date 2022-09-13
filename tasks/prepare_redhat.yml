@@ -1,3 +1,10 @@
+- name: Configure dracut to build initrd images for generic hosts
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/dracut.conf
+    search_string: hostonly=
+    line: hostonly=no
+
 - name: Installing GRUB EFI package
   become: yes
   ansible.builtin.yum:
