@@ -1,6 +1,17 @@
 - name: Performing distribution-specific tasks
   include_tasks: "prepare_{{ ansible_os_family | lower }}.yml"
 
+- name: Creating cloud-init extra configuration files
+  become: yes
+  ansible.builtin.copy:
+    dest: /etc/cloud/cloud.cfg.d/
+    src: "{{ filename }}"
+  loop_control:
+    loop_var: filename
+  loop:
+    - 10_network_config.cfg
+    - 20_keep_host_ssh_keys.cfg
+
 - name: Configuring GRUB
   become: true
   ansible.builtin.lineinfile:
@@ -16,7 +27,7 @@
     - search_for: GRUB_SERIAL_COMMAND=
       replace_with: GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"
     - search_for: GRUB_CMDLINE_LINUX_DEFAULT=
-      replace_with: GRUB_CMDLINE_LINUX_DEFAULT="no_timer_check nofb nomodeset gfxpayload=text product_name='OpenStack Nova'"
+      replace_with: GRUB_CMDLINE_LINUX_DEFAULT="no_timer_check nofb nomodeset gfxpayload=text"
     - search_for: GRUB_TIMEOUT=
       replace_with: GRUB_TIMEOUT="5"
     - search_for: GRUB_TIMEOUT_STYLE=
