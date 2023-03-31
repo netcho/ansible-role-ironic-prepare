@@ -23,3 +23,9 @@
       replace_with: GRUB_TIMEOUT_STYLE="menu"
   vars:
     os_family: "{{ ansible_os_family | lower }}"
+
+- name: Copying cloud-init mgmt interface configuration
+  become: true
+  ansible.builtin.copy:
+    dst: /etc/cloud/cloud.cfg.d/
+    src: 10_configure_mgmt0.cfg
