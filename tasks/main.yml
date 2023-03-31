@@ -27,5 +27,5 @@
 - name: Copying cloud-init mgmt interface configuration
   become: true
   ansible.builtin.copy:
-    dst: /etc/cloud/cloud.cfg.d/
+    dest: /etc/cloud/cloud.cfg.d/
     src: 10_configure_mgmt0.cfg
