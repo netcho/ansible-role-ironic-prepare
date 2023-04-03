@@ -10,6 +10,7 @@
     loop_var: filename
   loop:
     - 10_network_config.cfg
+    - 11_network_activate.cfg
     - 20_keep_host_ssh_keys.cfg
 
 - name: Configuring GRUB

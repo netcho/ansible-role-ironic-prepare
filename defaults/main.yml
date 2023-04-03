@@ -1,2 +1,3 @@
 ---
 # defaults file for ironic_prepare
+management_interface_name: mgmt0
