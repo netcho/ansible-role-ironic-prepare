@@ -1,9 +1,3 @@
-- name: Generating management interface network configuration file
-  become: yes
-  ansible.builtin.template:
-    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ management_interface_name }}"
-    src: management-interface.j2
-
 - name: Installing GRUB EFI package
   become: yes
   ansible.builtin.yum:

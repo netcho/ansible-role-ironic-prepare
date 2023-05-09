@@ -12,12 +12,3 @@
     create: yes
     line: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT network-config=disabled'
   notify: Update GRUB configuration
-
-- name: Configuring network management interface on Ubuntu 18.04
-  become: true
-  ansible.builtin.lineinfile:
-    path: /etc/network/interfaces
-    line: "{{ item }}"
-  loop:
-    - "auto {{ management_interface_name }}"
-    - "iface {{ management_interface_name }} inet dhcp"
