@@ -10,6 +10,5 @@
   become: yes
   ansible.builtin.lineinfile:
     path: /etc/default/grub
-    search_string: GRUB_CMDLINE_LINUX=
-    line: GRUB_CMDLINE_LINUX="crashkernel=auto network-config=disabled"
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT crashkernel=auto ci.datasource=OpenStack network-config=disabled'
   notify: Update GRUB configuration
