@@ -10,5 +10,5 @@
   ansible.builtin.lineinfile:
     path: /etc/default/grub.d/99-storpool-lab.cfg
     create: yes
-    line: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT ci.datasource=OpenStack network-config=disabled'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT ci.datasource=OpenStack network-config=disabled"'
   notify: Update GRUB configuration
