@@ -33,5 +33,17 @@
   vars:
     os_family: "{{ ansible_os_family | lower }}"
 
+- name: Disabling quiet boot
+  become: yes
+  ansible.builtin.replace:
+    path: /etc/default/grub
+    regexp: "{{ param }}"
+  notify: Update GRUB configuration
+  loop:
+    - quiet
+    - splash
+  loop_control:
+    loop_var: param
+
 - name: Performing distribution-specific tasks
   include_tasks: "prepare_{{ ansible_os_family | lower }}.yml"
