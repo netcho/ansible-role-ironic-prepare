@@ -13,7 +13,7 @@
 - name: Configuring GRUB
   become: true
   ansible.builtin.lineinfile:
-    path: "{{ grub_configuration_map[os_family] }}"
+    path: /etc/default/grub
     create: true
     mode: 0644
     search_string: "{{ item.search_for }}"
@@ -26,6 +26,8 @@
       replace_with: GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"
     - search_for: GRUB_CMDLINE_LINUX=
       replace_with: GRUB_CMDLINE_LINUX="no_timer_check nofb nomodeset gfxpayload=text"
+    - search_for: GRUB_CMDLINE_LINUX_DEFAULT=
+      replace_with: GRUB_CMDLINE_LINUX_DEFAULT=" "
     - search_for: GRUB_TIMEOUT=
       replace_with: GRUB_TIMEOUT="5"
     - search_for: GRUB_TIMEOUT_STYLE=
