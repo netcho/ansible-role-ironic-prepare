@@ -25,7 +25,7 @@
     - search_for: GRUB_SERIAL_COMMAND=
       replace_with: GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"
     - search_for: GRUB_CMDLINE_LINUX=
-      replace_with: GRUB_CMDLINE_LINUX="no_timer_check nofb nomodeset gfxpayload=text"
+      replace_with: GRUB_CMDLINE_LINUX="no_timer_check nofb nomodeset gfxpayload=text product_name='OpenStack Nova'"
     - search_for: GRUB_CMDLINE_LINUX_DEFAULT=
       replace_with: GRUB_CMDLINE_LINUX_DEFAULT=" "
     - search_for: GRUB_TIMEOUT=
@@ -46,6 +46,13 @@
     - splash
   loop_control:
     loop_var: param
+
+- name: Disable cloud-init-local
+  become: yes
+  ansible.builtin.systemd:
+    name: cloud-init-local.service
+    masked: true
+
 
 - name: Performing distribution-specific tasks
   include_tasks: "prepare_{{ ansible_os_family | lower }}.yml"
